@@ -1,5 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.database import engine, Base
+from app.models import user  # noqa: F401
+from app.routes import auth
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Finance Tracker API",
@@ -7,7 +12,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# This allows your React frontend (on port 5173) to talk to this API
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -15,6 +19,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(auth.router)
 
 @app.get("/")
 def root():
