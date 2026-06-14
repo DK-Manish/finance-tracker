@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
+import SpendingChart from '../components/SpendingChart';
+
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -79,6 +81,9 @@ function Dashboard() {
             <p style={{ ...styles.cardAmount, color: '#ef4444' }}>£{totalExpenses.toFixed(2)}</p>
           </div>
         </div>
+
+<SpendingChart transactions={transactions} />
+
 
         <div style={styles.main}>
           {/* Add Transaction Form */}
