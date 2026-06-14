@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 from app.models import user  # noqa: F401
 from app.routes import auth
+from app.models import user, transaction  # noqa: 
+from app.routes import auth, transaction
 
 Base.metadata.create_all(bind=engine)
 
@@ -21,6 +23,8 @@ app.add_middleware(
 )
 
 app.include_router(auth.router)
+
+app.include_router(transaction.router) 
 
 @app.get("/")
 def root():
