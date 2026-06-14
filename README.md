@@ -8,7 +8,7 @@ A full-stack personal finance tracking application built with **FastAPI**, **Rea
 
 - 🔐 Secure user authentication with JWT tokens
 - 💸 Add and delete income & expense transactions
-- 📊 Visual charts — income vs expenses (doughnut) and spending by category (bar)
+- 📊 Visual charts — income vs expenses and spending by category
 - 🏦 Real-time balance, income, and expense summary cards
 - 🔒 All routes protected — users only see their own data
 
@@ -24,32 +24,22 @@ A full-stack personal finance tracking application built with **FastAPI**, **Rea
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Python 3.11+
-- Node.js 18+
-- PostgreSQL 16+
-
 ### Backend Setup
 
-```bash
-cd backend
-pipenv install
-cp .env.example .env  # fill in your database credentials
-pipenv run uvicorn app.main:app --reload
-```
+    cd backend
+    pipenv install
+    pipenv run uvicorn app.main:app --reload
 
-API runs at `http://localhost:8000`
-Interactive docs at `http://localhost:8000/docs`
+API runs at http://localhost:8000  
+Swagger docs at http://localhost:8000/docs
 
 ### Frontend Setup
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+    cd frontend
+    npm install
+    npm run dev
 
-App runs at `http://localhost:5173`
+App runs at http://localhost:5173
 
 ## 📸 Screenshots
 
@@ -60,3 +50,28 @@ App runs at `http://localhost:5173`
 ![Dashboard](docs/screenshots/dashboard.png)
 
 ## 📁 Project Structure
+
+    finance-tracker/
+    ├── backend/
+    │   └── app/
+    │       ├── models/        # SQLAlchemy database models
+    │       ├── routes/        # FastAPI route handlers
+    │       ├── schemas/       # Pydantic request/response schemas
+    │       ├── utils/         # JWT auth and password hashing
+    │       ├── database.py    # Database connection
+    │       └── main.py        # FastAPI app entry point
+    └── frontend/
+        └── src/
+            ├── api/           # Axios API config
+            ├── components/    # Reusable React components
+            └── pages/         # Login and Dashboard pages
+
+## 🔌 API Endpoints
+
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| POST | `/auth/register` | Register new user | ❌ |
+| POST | `/auth/login` | Login and get JWT token | ❌ |
+| GET | `/transactions/` | Get all user transactions | ✅ |
+| POST | `/transactions/` | Create new transaction | ✅ |
+| DELETE | `/transactions/{id}` | Delete a transaction | ✅ |
